@@ -28,17 +28,12 @@ locals {
   }
 }
 
-locals {
-  resources_default = "arn:aws:s3:::*"
-}
-
 data "aws_iam_policy_document" "policy" {
   dynamic "statement" {
     for_each = var.policy_statements
     content {
       actions = coalesce(statement.value["actions"], local.presets[statement.value["preset"]])
       resources = toset(
-        coalescelist(
           concat(
             # 1. first concat resources and buckets
             coalesce(statement.value["resources"], []),
@@ -49,10 +44,7 @@ data "aws_iam_policy_document" "policy" {
               for bucket in coalesce(statement.value["buckets"], []) : "arn:aws:s3:::${var.bucket_arns[bucket]}/*"
             ]
           ),
-          # 2. if they're both empty, use the default resource
-          [local.resources_default]
         )
-      )
     }
   }
 }

@@ -12,7 +12,7 @@ variable "policy_statements" {
     preset    = optional(string)
     actions   = optional(list(string))
     resources = optional(list(string))
-    buckets   = optional(list(string))
+    buckets   = list(string)
   }))
 
   validation {
@@ -32,6 +32,13 @@ variable "policy_statements" {
       )
     ])
     error_message = "Each statement must have either 'preset' or 'actions' set, but not both. One of them must be empty."
+  }
+
+  validation {
+    condition = alltrue([
+      for v in var.policy_statements : length(v.buckets) > 0
+      ])
+    error_message = "Each object in the list must have at least one bucket in the 'buckets' field."
   }
 }
 
