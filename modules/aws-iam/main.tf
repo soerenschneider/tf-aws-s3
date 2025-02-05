@@ -5,7 +5,11 @@ locals {
       "admin:*"
     ]
     readwrite = [
-      "s3:*"
+      "s3:PutObject",
+      "s3:GetObject",
+      "s3:ListBucket",
+      "s3:GetBucketLocation",
+      "s3:DeleteObject"
     ]
     writeonly = [
       "s3:PutObject"
@@ -15,16 +19,6 @@ locals {
       "s3:GetObject",
       "s3:ListBucket"
     ],
-    diagnostics = [
-      "admin:ServerTrace",
-      "admin:Profiling",
-      "admin:ConsoleLog",
-      "admin:ServerInfo",
-      "admin:TopLocksInfo",
-      "admin:OBDInfo",
-      "admin:BandwidthMonitor",
-      "admin:Prometheus"
-    ]
   }
 }
 
@@ -38,10 +32,10 @@ data "aws_iam_policy_document" "policy" {
             # 1. first concat resources and buckets
             coalesce(statement.value["resources"], []),
             [
-              for bucket in coalesce(statement.value["buckets"], []) : "arn:aws:s3:::${var.bucket_arns[bucket]}"
+              for bucket in coalesce(statement.value["buckets"], []) : var.bucket_arns[bucket]
             ],
             [
-              for bucket in coalesce(statement.value["buckets"], []) : "arn:aws:s3:::${var.bucket_arns[bucket]}/*"
+              for bucket in coalesce(statement.value["buckets"], []) : "${var.bucket_arns[bucket]}/*"
             ]
           ),
         )
