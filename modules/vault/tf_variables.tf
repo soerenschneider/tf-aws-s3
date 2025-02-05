@@ -24,13 +24,6 @@ variable "password_store_paths" {
     ])
     error_message = "Each path in password_store_paths must not start or end with a slash ('/')."
   }
-
-  validation {
-    condition = alltrue([
-      for path in var.password_store_paths : can(regex("%s", path))
-    ])
-    error_message = "Each path in password_store_paths must contain the substring '%s'."
-  }
 }
 
 variable "vault_kv2_mount" {
