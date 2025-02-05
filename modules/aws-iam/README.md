@@ -32,7 +32,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_bucket_arns"></a> [bucket\_arns](#input\_bucket\_arns) | n/a | `map(string)` | n/a | yes |
 | <a name="input_password_store_paths"></a> [password\_store\_paths](#input\_password\_store\_paths) | Paths to write the credentials to. | `list(string)` | n/a | yes |
-| <a name="input_policy_statements"></a> [policy\_statements](#input\_policy\_statements) | n/a | <pre>list(object({<br/>    preset    = optional(string)<br/>    actions   = optional(list(string))<br/>    resources = optional(list(string))<br/>    buckets   = optional(list(string))<br/>  }))</pre> | n/a | yes |
+| <a name="input_policy_statements"></a> [policy\_statements](#input\_policy\_statements) | n/a | <pre>list(object({<br/>    preset    = optional(string)<br/>    actions   = optional(list(string))<br/>    resources = optional(list(string))<br/>    buckets   = list(string)<br/>  }))</pre> | n/a | yes |
 | <a name="input_user_name"></a> [user\_name](#input\_user\_name) | n/a | `string` | n/a | yes |
 
 ## Outputs
