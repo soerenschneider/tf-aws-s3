@@ -1,5 +1,3 @@
-password_store_paths = ["soeren.cloud/env/prod/aws-s3/%s"]
-
 buckets = [
   {
     name = "soerenschneider-taskwarrior-prod",
@@ -21,15 +19,20 @@ buckets = [
 users = [
   {
     user_name = "taskwarrior-prod-soeren"
-    password_store_paths = [
-      "users/soeren/aws/s3/taskwarrior-prod"
-    ]
+    password_store_paths = ["users/soeren/aws/s3/taskwarrior-prod"]
     statements = [
       {
         preset  = "readwrite"
-        buckets = [
-          "soerenschneider-taskwarrior-prod"
-        ]
+        buckets = ["soerenschneider-taskwarrior-prod"]
+      }
+    ]
+  },
+  {
+    user_name = "taskwarrior-prod-aether"
+    statements = [
+      {
+        preset  = "readwrite"
+        buckets = ["soerenschneider-taskwarrior-prod"]
       }
     ]
   }
