@@ -14,7 +14,7 @@ variable "buckets" {
       enabled           = optional(bool, true)
       exclude_folders   = optional(bool, false)
       excluded_prefixes = optional(list(string), [])
-      }))
+    }))
 
     lifecycle_rules = optional(list(object({
       enabled = optional(bool, true)

@@ -4,14 +4,14 @@ locals {
 }
 
 module "buckets" {
-  for_each        = { for bucket in var.buckets : coalesce(bucket.name, bucket.bucket_prefix) => bucket }
-  source          = "../../modules/aws-s3"
-  bucket_name     = each.value.name
-  bucket_prefix   = each.value.bucket_prefix
-  force_destroy   = each.value.force_destroy
+  for_each                  = { for bucket in var.buckets : coalesce(bucket.name, bucket.bucket_prefix) => bucket }
+  source                    = "../../modules/aws-s3"
+  bucket_name               = each.value.name
+  bucket_prefix             = each.value.bucket_prefix
+  force_destroy             = each.value.force_destroy
   object_lock_configuration = each.value.object_lock_configuration
-  versioning      = each.value.versioning
-  lifecycle_rules = each.value.lifecycle_rules
+  versioning                = each.value.versioning
+  lifecycle_rules           = each.value.lifecycle_rules
 }
 
 module "users" {
