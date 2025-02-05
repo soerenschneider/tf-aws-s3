@@ -1,6 +1,6 @@
 locals {
   instance                     = basename(abspath(path.module))
-  password_store_paths_default = ["env/${local.instance}/aws-s3/credentials/%s"]
+  password_store_paths_default = ["soeren.cloud/env/${local.instance}/aws-s3/credentials/%s"]
 }
 
 module "buckets" {
