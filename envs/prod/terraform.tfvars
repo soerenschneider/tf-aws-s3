@@ -2,17 +2,8 @@ buckets = [
   {
     name = "soerenschneider-taskwarrior-prod",
     versioning = {
-      enabled = true,
+      enabled = false,
     }
-    lifecycle_rules = [
-      {
-        id = "default"
-        abort_incomplete_multipart_upload_days = 1,
-        expiration = {
-          days = 7
-        }
-      }
-    ]
   }
 ]
 
